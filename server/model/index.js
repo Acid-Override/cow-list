@@ -56,6 +56,12 @@ let updateCow = (params, callback) => {
 }
 
 
+
+
+
+
+
+
 //DELETE one from databas
 let deleteCow = (params, callback) => {
   let queryStr = "DELETE FROM cows WHERE name=(?)"

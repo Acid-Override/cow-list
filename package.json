@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server",
+    "start": "nodemon server/index.js",
     "build": "webpack",
+    "react-dev": "webpack --config ./webpack.config.js  -w",
     "watch": "webpack -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +18,7 @@
     "express": "^4.17.1",
     "jquery": "^3.5.1",
     "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },

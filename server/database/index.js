@@ -14,9 +14,9 @@ mongoose.connect('mongodb://localhost/cowsDB')
     console.log("Connection Error: ", error)
   })
 
-const { Schema } = mongoose;
+//const { Schema } = mongoose;
 
-const cowSchema = new Schema({
+const cowSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: false }
 })
@@ -25,14 +25,9 @@ const Cow = mongoose.model("Cow", cowSchema)
 
 let createCow = (params) => {
   console.log(params)
-  const entry = new Cow(params)
-  return entry.save()
-    .then(results => {
-      console.log("createCow Results: ", results)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  const {name, description} = params
+  const doc = new Cow(params)
+  return Cow.updateOne({name: name}, doc, {upsert: true})
 }
 
 let readCow = () => {
@@ -53,7 +48,10 @@ let updateCow = (params) => {
 
 let deleteCow = (params) => {
   console.log("[deleteCow] database/index.js Params: ", params)
-  return Cow.deleteOne({ params })
+  return Cow.deleteOne(params)
+  .then(results => {
+    console.log(results)
+  })
 }
 
 module.exports = {

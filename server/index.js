@@ -8,6 +8,7 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cors());
 
 app.get('/api/cows', (req, res) => {
@@ -33,7 +34,8 @@ app.post('/api/cows', (req, res) => {
     res.send(err)
   })
 })
-app.delete('/api/cows', (req, res) => {
+app.post('/api/cows/delete', (req, res) => {
+  console.log('Server app.delete body', req.body)
   const {name} = req.body
   const params = {name: name};
   deleteCow(params)

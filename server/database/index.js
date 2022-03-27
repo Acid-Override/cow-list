@@ -1,33 +1,52 @@
-const mysql = require('mysql2');
+//require mongoose
+const mongoose = require('mongoose');
+//OR ES6
+//import mongoose from 'mongoose';
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  database: 'cowsDB'
-});
+//mongosh
+//use cowsDB
 
-connection.connect((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log('Connected to MySQL!')
-  }
-});
+//Connecting to MongoDB
+//define a connection
 
-// Your Database Queries Here!!
+mongoose.connect('mongodb://localhost/cowsDB')
+.catch(err => {
+  console.log("Connection Error: ", error)
+})
 
-// connection.query("Select * From cows", (err, results) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log("QUERY RESULTS [database/index.js]", results);
-//   }
-// })
+const { Schema } = mongoose;
+
+const cowSchema = new Schema({
+  name : {type: String, required: true},
+  description: {type: String, required: false}
+})
 
 
 
-// Don't forget to export your functions!
+const Cow = mongoose.model("Cow", cowSchema)
+
+let createCow = (params) => {
+  console.log(params)
+  const entry = new Cow(params)
+  return entry.save()
+  .then(results => {
+    console.log("createCow Results: ", results)
+  })
+  .catch( err => {
+    console.log(err)
+  })
+
+}
+
+let readCow = () => {
+  console.log("[readCow] database/index.js")
+  return Cow.find()
+}
+
+
+
+
 module.exports = {
-  connection,
-
-};
+  createCow,
+  readCow,
+}

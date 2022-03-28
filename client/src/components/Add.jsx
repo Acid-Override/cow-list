@@ -46,7 +46,7 @@ render() {
             value={this.state.name}
             onChange={this.handleNameChange}
           />
-          <input
+          <textarea
             type="text"
             name="description"
             placeholder="Cow Says"

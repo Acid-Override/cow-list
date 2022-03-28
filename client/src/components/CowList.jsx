@@ -11,7 +11,10 @@ let CowList = (props) => {
           key={cow.id}
           name={cow.name}
           description={cow.description}
-          deleteACow={props.deleteACow} />
+          id={cow.id}
+          deleteACow={props.deleteACow}
+          handleSubmitEdit={props.handleSubmitEdit}
+          showCow={props.showCow}/>
         )
       })}
     </thead>

@@ -36,12 +36,14 @@ let readCow = () => {
 }
 
 let updateCow = (params) => {
+  console.log("updateCow params: ",params)
   console.log("[updateCow] database/index.js")
-  const { name, description } = params
-  return Cow.updateOne({ name: name },
+  const { id, name, description } = params
+  return Cow.updateOne({ _id: id },
     {
       $set: {
-        description: description
+        name: name,
+        description: description,
       }
     })
 }

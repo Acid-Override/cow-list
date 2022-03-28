@@ -9,7 +9,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
+//app.use(cors());
 
 app.get('/api/cows', (req, res) => {
   readCow()
@@ -34,10 +34,10 @@ app.post('/api/cows', (req, res) => {
     res.send(err)
   })
 })
-app.post('/api/cows/delete', (req, res) => {
-  console.log('Server app.delete body', req.body)
-  const {name} = req.body
-  const params = {name: name};
+app.delete('/api/cows/:id', (req, res) => {
+  console.log('Server app.delete body', req.params)
+  const {id} = req.params
+  const params = {_id: id};
   deleteCow(params)
   .then(results => {
     res.send(results)
@@ -46,9 +46,12 @@ app.post('/api/cows/delete', (req, res) => {
     res.send(err)
   })
 })
-app.put('/api/cows', (req, res) => {
-  const {name, description} = req.body
-  const params = {name: name, description: description};
+app.put('/api/cows/:id', (req, res) => {
+  console.log("PUT REQUEST: ", req.params)
+  console.log("PUT REQUEST BODY", req.body)
+  const {id} = req.params
+  const {name, description} = req.body.data
+  const params = {id, name, description};
   updateCow(params)
   .then (results => {
     res.send(results)

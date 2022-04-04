@@ -35,6 +35,25 @@ let readCow = () => {
   return Cow.find()
 }
 
+
+//From Dalton @ Slack
+/**
+ * Model function to query top 25 repos sorted by forks and stars in descending order
+ * @returns Promise Array of Mongoose Query Document Objects
+ */
+ const getAll = () => {
+  return Repo
+          .find({})
+          .sort({
+            forks_count: -1,
+            stargazers_count: -1
+          })
+          .limit(25)
+          .exec()
+}
+
+
+
 let updateCow = (params) => {
   console.log("updateCow params: ",params)
   console.log("[updateCow] database/index.js")
